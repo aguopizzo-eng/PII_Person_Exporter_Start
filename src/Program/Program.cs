@@ -27,13 +27,12 @@ namespace Ucu.Poo.PersonExporter
                 new Person { FirstName = "Charlie", LastName = "Brown", Age = 25 },
             };
 
-            IExporter htmlFormat = new HtmlExporter(people, "persons-report.html");
-            IExporter pdfFormat = new PdfExporter(people, "persons-report.pdf");
-            IExporter mdFormat = new MdExporter(people, "persons-report.md");
-            IExporter csvFormat = new CsvExporter(people, "persons-report.csv");
+            Exporter htmlFormat = new HtmlExporter(people, "persons-report.html");
+            Exporter pdfFormat = new PdfExporter(people, "persons-report.pdf");
+            Exporter mdFormat = new MdExporter(people, "persons-report.md");
+            Exporter csvFormat = new CsvExporter(people, "persons-report.csv");
 
-
-            Dictionary<string, IExporter> options = new Dictionary<string, IExporter>();
+            Dictionary<string, Exporter> options = new Dictionary<string, Exporter>();
             options.Add("1", htmlFormat);
             options.Add("2", pdfFormat);
             options.Add("3", mdFormat);
@@ -50,11 +49,9 @@ namespace Ucu.Poo.PersonExporter
 
             string option = Console.ReadLine();
             
-            
-            
             if (options.ContainsKey(option))
             {
-                IExporter selectedExporter = options[option];
+                Exporter selectedExporter = options[option];
                 bool result = generator.GenerateReport(selectedExporter);
 
                 if (result)

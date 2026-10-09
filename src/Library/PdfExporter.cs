@@ -1,28 +1,28 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
-using System.Text;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 using Ucu.Poo.PersonExporter;
 
 /// <summary>
-/// 
+/// Exporta una lista de personas a un archivo PDF con una tabla.
 /// </summary>
-public class PdfExporter : IExporter
+public class PdfExporter : Exporter
 {
-    public IList<Person> People { get; set; }
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase <see cref="PdfExporter"/>.
+    /// </summary>
+    /// <param name="people">Lista de personas a incluir en el reporte.</param>
+    /// <param name="outputPath">Ruta del archivo PDF que se va a generar.</param>
+    public PdfExporter(List<Person> people, string outputPath)
+  : base (people, outputPath)
+  {
+  }
 
-    public string OutputPath { get; set; }
-
-    public PdfExporter(IList<Person> people, string outputPath)
-    {
-        this.People = people;
-        this.OutputPath = outputPath;
-    }
-    public void Export()
+    /// <inheritdoc />
+    public override void Export()
     {
         QuestPDF.Settings.License = LicenseType.Community;
 

@@ -1,29 +1,27 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Text;
-using QuestPDF.Fluent;
-using QuestPDF.Helpers;
-using QuestPDF.Infrastructure;
 using Ucu.Poo.PersonExporter;
 
 /// <summary>
-/// 
+/// Exporta una lista de personas a un archivo Markdown con una tabla.
 /// </summary>
-public class MdExporter : IExporter
+public class MdExporter : Exporter
 {
-  public IList<Person> People { get; set; }
-
-  public string OutputPath { get; set; }
-
-  public MdExporter(IList<Person> people, string outputPath)
+  /// <summary>
+  /// Inicializa una nueva instancia de la clase <see cref="MdExporter"/>.
+  /// </summary>
+  /// <param name="people">Lista de personas a incluir en el reporte.</param>
+  /// <param name="outputPath">Ruta del archivo Markdown que se va a
+  /// generar.</param>
+  public MdExporter(List<Person> people, string outputPath)
+  : base (people, outputPath)
   {
-    this.People = people;
-    this.OutputPath = outputPath;
   }
 
-  public void Export()
+  /// <inheritdoc />
+  public override void Export()
   {
     StringBuilder sb = new StringBuilder();
     sb.AppendLine("# Person Report");
@@ -40,6 +38,7 @@ public class MdExporter : IExporter
     File.WriteAllText(this.OutputPath, markdown, Encoding.UTF8);
   }
 
+  // Escapa caracteres especiales de Markdown en un texto simple.
   private static string EscapeMarkdown(string value)
   {
       if (string.IsNullOrEmpty(value))

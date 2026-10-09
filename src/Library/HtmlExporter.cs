@@ -1,30 +1,25 @@
-using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Text;
-using Microsoft.VisualBasic;
-using QuestPDF.Fluent;
-using QuestPDF.Helpers;
-using QuestPDF.Infrastructure;
 using Ucu.Poo.PersonExporter;
 
 /// <summary>
-/// 
+/// Exporta una lista de personas a un archivo HTML con una tabla.
 /// </summary>
-public class HtmlExporter : IExporter
+public class HtmlExporter : Exporter
 {
-  public IList<Person> People { get; set; }
-
-  public string OutputPath { get; set; }
-
-  public HtmlExporter(IList<Person> people, string outputPath)
+  /// <summary>
+  /// Inicializa una nueva instancia de la clase <see cref="HtmlExporter"/>.
+  /// </summary>
+  /// <param name="people">Lista de personas a incluir en el reporte.</param>
+  /// <param name="outputPath">Ruta del archivo HTML que se va a generar.</param>
+  public HtmlExporter(List<Person> people, string outputPath)
+  : base (people, outputPath)
   {
-    this.People = people;
-    this.OutputPath = outputPath;
   }
 
-  public void Export()
+  /// <inheritdoc />
+  public override void Export()
   {
     StringBuilder sb = new StringBuilder();
     sb.AppendLine("<!DOCTYPE html>");

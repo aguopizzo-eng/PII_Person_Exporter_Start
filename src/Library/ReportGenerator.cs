@@ -3,31 +3,22 @@
 //     Copyright (c) Programación II. Derechos reservados.
 // </copyright>
 //------------------------------------------------------------------------------
-
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Text;
-using QuestPDF.Fluent;
-using QuestPDF.Helpers;
-using QuestPDF.Infrastructure;
-
 namespace Ucu.Poo.PersonExporter
 {
     /// <summary>
-    /// Genera reportes de personas en distintos formatos: PDF y HTML.
+    /// Genera reportes de personas delegando en un <see cref="Exporter"/>, sin
+    /// conocer el formato concreto de salida.
     /// </summary>
     public class ReportGenerator
     {
         /// <summary>
-        /// Genera un reporte de una lista de personas en el formato indicado.
+        /// Genera un reporte usando el exportador indicado.
         /// </summary>
-        /// <param name="format">Formato de salida del reporte. Valores
-        /// esperados: "PDF" o "HTML".</param>
-        /// <returns>Retorna <c>true</c> si los reportes fueron generados y
-        /// <c>false</c> en caso contrario.</returns>
-        public bool GenerateReport(IExporter format)
+        /// <param name="format">Exportador que define el formato de salida y
+        /// la ruta del archivo.</param>
+        /// <returns>Retorna <c>true</c> si el reporte fue generado y
+        /// <c>false</c> si el exportador es <c>null</c>.</returns>
+        public bool GenerateReport(Exporter format)
         {
             if (format != null)
             {
