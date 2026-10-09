@@ -7,20 +7,30 @@ using CsvHelper;
 using CsvHelper.Configuration;
 
 /// <summary>
-/// 
+/// Exporta una lista de personas a un archivo CSV con encabezado.
 /// </summary>
 public class CsvExporter : IExporter
 {
-  public IList<Person> People { get; set; }
-
-  public string OutputPath { get; set; }
-
+  /// <summary>
+  /// Inicializa una nueva instancia de la clase <see cref="CsvExporter"/>.
+  /// </summary>
+  /// <param name="people">Lista de personas a incluir en el reporte.</param>
+  /// <param name="outputPath">Ruta del archivo CSV que se va a generar.</param>
   public CsvExporter(IList<Person> people, string outputPath)
   {
     this.People = people;
     this.OutputPath = outputPath;
   }
 
+  /// <summary>
+  /// Obtiene o establece la lista de personas que se exportan.
+  /// </summary>
+  public IList<Person> People { get; set; }
+
+  /// <inheritdoc />
+  public string OutputPath { get; set; }
+
+  /// <inheritdoc />
   public void Export()
   {
     CsvConfiguration config = new CsvConfiguration(CultureInfo.InvariantCulture)
