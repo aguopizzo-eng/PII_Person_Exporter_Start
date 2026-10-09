@@ -27,43 +27,49 @@ namespace Ucu.Poo.PersonExporter
                 new Person { FirstName = "Charlie", LastName = "Brown", Age = 25 },
             };
 
+            IExporter htmlFormat = new HtmlExporter(people, "persons-report.html");
+            IExporter pdfFormat = new PdfExporter(people, "persons-report.pdf");
+            IExporter mdFormat = new MdExporter(people, "persons-report.md");
+            IExporter csvFormat = new CsvExporter(people, "persons-report.csv");
+
+
+            Dictionary<string, IExporter> options = new Dictionary<string, IExporter>();
+            options.Add("1", htmlFormat);
+            options.Add("2", pdfFormat);
+            options.Add("3", mdFormat);
+            options.Add("4", csvFormat);
+
             ReportGenerator generator = new ReportGenerator();
 
             Console.WriteLine("Seleccione el formato de reporte:");
             Console.WriteLine("1 - HTML");
             Console.WriteLine("2 - PDF");
+            Console.WriteLine("3 - MARKDOWN");
+            Console.WriteLine("4 - CSV");
             Console.Write("Opción: ");
 
             string option = Console.ReadLine();
-            string format;
-            string outputPath;
+            
+            
+            
+            if (options.ContainsKey(option))
+            {
+                IExporter selectedExporter = options[option];
+                bool result = generator.GenerateReport(selectedExporter);
 
-            if (option == "1")
-            {
-                format = "HTML";
-                outputPath = "persons-report.html";
-            }
-            else if (option == "2")
-            {
-                format = "PDF";
-                outputPath = "persons-report.pdf";
+                if (result)
+                {
+                    Console.WriteLine("Reporte generado en el directorio actual:");
+                    Console.WriteLine(selectedExporter.OutputPath);
+                }
+                else
+                {
+                    Console.WriteLine("No se pudo generar el reporte.");
+                }
             }
             else
             {
-                Console.WriteLine("Opción no válida. Saliendo del programa.");
-                return;
-            }
-
-            bool result = generator.GenerateReport(people, format, outputPath);
-
-            if (result)
-            {
-                Console.WriteLine("Reporte generado en el directorio actual:");
-                Console.WriteLine(outputPath);
-            }
-            else
-            {
-                Console.WriteLine("No se pudo generar el reporte.");
+                Console.WriteLine("Opción inválida.");
             }
         }
     }

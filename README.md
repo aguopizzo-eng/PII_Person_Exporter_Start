@@ -125,3 +125,9 @@ using (StreamWriter writer = new StreamWriter(outputPath, false, Encoding.UTF8))
 
 Es posible usar GitHub Copilot en este repositorio. Consulta [cómo usar Copilot
 para aprender](./COPILOT.md).
+
+---
+
+## Ejercicio 1:
+Tuve que hacer cambios en el método GenerateReport para agregarle un nuevo condicional que evalúe si el format que el usuario pide es Markdown. Tuve que agregar el método a la clase ReportGenerator. Tuve que hacer cambios en program para agregar la nueva opción.
+
